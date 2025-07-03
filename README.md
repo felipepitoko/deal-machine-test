@@ -1,96 +1,100 @@
-# Deal Machine Test - Message Analysis Platform
 
-## Overview
-This project is a full-stack message analysis platform built with FastAPI, PostgreSQL, and a modern HTML/JS frontend. It demonstrates advanced backend and frontend integration, database management, and AI-powered text analysis. The app is designed as a skill test for a Software Analyst position, showcasing best practices in API design, containerization, and user experience.
+# Deal Machine Test - Plataforma de Análise de Mensagens
 
-## Features
-- **FastAPI Backend**: Robust REST API for message CRUD, search, and analytics.
-- **PostgreSQL Database**: Reliable storage for all messages and metadata.
-- **AI-Powered Analysis**: Automatic extraction of keywords, intention, and feeling from messages using both static rules and an AI agent.
-- **Advanced Filtering**: Search messages by username, keywords, feeling, intention, and date range.
-- **Distinct Endpoints**: Retrieve all unique usernames, keywords, feelings, and intentions for dynamic filtering.
-- **Modern Frontend**: Responsive HTML/JS interface with live filtering and beautiful message cards.
-- **Containerized**: One-command startup with Docker Compose, including Adminer for DB inspection.
+## Visão Geral
+Este projeto é uma plataforma completa de análise de mensagens, construída com FastAPI, PostgreSQL e um frontend moderno em HTML/JS. Demonstra integração avançada entre backend e frontend, gestão de banco de dados e análise de texto com IA. O app foi desenvolvido como teste de habilidades em Python e IA, evidenciando boas práticas em APIs, conteinerização e experiência do usuário.
 
-## Architecture
+## Funcionalidades
+- **Backend FastAPI**: API REST robusta para inserção, busca e análise de mensagens.
+- **Banco de Dados PostgreSQL**: Armazenamento confiável de mensagens e metadados.
+- **Análise com IA**: Extração automática de palavras-chave, intenção e sentimento usando regras e agente de IA.
+- **Filtros Avançados**: Busque mensagens por usuário, palavra-chave, sentimento, intenção e período.
+- **Endpoints Distintos**: Recupere todos os usuários, palavras-chave, sentimentos e intenções únicos para filtros dinâmicos.
+- **Frontend Moderno**: Interface responsiva em HTML/JS com filtros ao vivo e visualização elegante das mensagens.
+- **Conteinerização**: Inicialização com um único comando via Docker Compose, incluindo Adminer para inspeção do banco.
+
+## Arquitetura
 - **Backend**: Python 3.11, FastAPI, SQLAlchemy, Jinja2, Uvicorn
-- **Database**: PostgreSQL (with Adminer for easy DB management)
+- **Banco de Dados**: PostgreSQL (com Adminer para gestão visual)
 - **Frontend**: HTML, CSS (Tailwind), JavaScript (fetch API)
-- **AI Agent**: Pluggable logic for message analysis (see `filters.py` and `analyze_agent.py`)
+- **Agente IA**: Lógica plugável para análise de mensagens (`filters.py` e `analyze_agent.py`)
 
-## Quick Start
-### Prerequisites
-- Docker & Docker Compose installed
+## Início Rápido
+### Pré-requisitos
+- Docker e Docker Compose instalados
 
-### 1. Clone the repository
+### 1. Clone o repositório
 ```sh
-git clone <your-repo-url>
-cd deal_machine-test
+git clone <seu-repo-url>
+cd deal-machine-test
 ```
 
-### 2. Start all services (API, DB, Adminer) with one command
+### 2. Suba todos os serviços (API, DB, Adminer) com um comando
 ```sh
 docker compose up --build
 ```
-- The API will be available at [http://localhost:8000](http://localhost:8000)
-- The frontend is served at the root URL.
-- Adminer (DB UI) is at [http://localhost:8080](http://localhost:8080)
-  - System: PostgreSQL
-  - Server: db
-  - Username: example
-  - Password: example
-  - Database: postgres
+- A API estará disponível em [http://localhost:8000](http://localhost:8000)
+- O frontend é servido na URL raiz.
+- Adminer (UI do banco) em [http://localhost:8080](http://localhost:8080)
+  - Sistema: PostgreSQL
+  - Servidor: db
+  - Usuário: example
+  - Senha: example
+  - Banco: postgres
 
-### 3. Using the App
-- Open [http://localhost:8000](http://localhost:8000) in your browser.
-- Add messages, search, and filter using the intuitive UI.
-- All analysis is automatic—try different texts to see keyword, intention, and feeling extraction.
 
-### 4. API Endpoints
-- `POST /add_message/` — Add a new message (auto-analyzed)
-- `GET /list_messages/` — List/search messages (filter by username, keywords, feeling, intention, date)
-- `GET /distinct_usernames/` — List all unique usernames
-- `GET /distinct_keywords/` — List all unique keywords
-- `GET /distinct_feelings/` — List all unique feelings
-- `GET /distinct_intentions/` — List all unique intentions
-- `POST /from_telegram/` — Ingest and analyze Telegram-style messages
+### 3. Usando o App
+- Acesse [http://localhost:8000](http://localhost:8000) no navegador.
+- Busque e filtre mensagens usando a interface intuitiva.
+- O sistema já vem com dados mock inseridos (basta rodar `python populate.py` após a API estar online, se quiser recarregar os dados).
+- A análise é automática — experimente diferentes textos para ver a extração de palavras-chave, intenção e sentimento.
+- Você pode conectar um bot do Telegram e enviar mensagens para o endpoint `/from_telegram/` para integração real com o Telegram.
 
-### 5. Customization
-- **Message Analysis**: Edit `filters.py` and `analyze_agent.py` to change how keywords, intentions, and feelings are extracted.
-- **Database Models**: See `db_manager.py` for SQLAlchemy models.
-- **Frontend**: Edit `templates/index.html` and `static/script.js` for UI changes.
+### 4. Endpoints da API
+- `POST /add_message/` — Adiciona nova mensagem (análise automática)
+- `GET /list_messages/` — Lista/busca mensagens (filtro por usuário, palavra-chave, sentimento, intenção, data)
+- `GET /distinct_usernames/` — Lista todos os usuários únicos
+- `GET /distinct_keywords/` — Lista todas as palavras-chave únicas
+- `GET /distinct_feelings/` — Lista todos os sentimentos únicos
+- `GET /distinct_intentions/` — Lista todas as intenções únicas
+- `POST /from_telegram/` — Ingestão e análise de mensagens no formato do Telegram
 
-## Project Structure
+### 5. Personalização
+- **Análise de Mensagens**: Edite `filters.py` e `analyze_agent.py` para alterar a extração de palavras-chave, intenções e sentimentos.
+- **Modelos do Banco**: Veja `db_manager.py` para os modelos SQLAlchemy.
+- **Frontend**: Edite `templates/index.html` e `static/script.js` para customizar a interface.
+
+## Estrutura do Projeto
 ```
-.
-├── api.py                # FastAPI app and endpoints
-├── db_manager.py         # DB models and session management
-├── filters.py            # Message analysis logic
-├── analyze_agent.py      # AI agent for advanced analysis
-├── requirements.txt      # Python dependencies
-├── Dockerfile            # API container build
-├── compose.yaml          # Docker Compose config
-├── start.sh              # Entrypoint: create tables, then start API
+deal-machine-test/
+├── api.py                # App FastAPI e endpoints
+├── db_manager.py         # Modelos e gestão do banco
+├── filters.py            # Lógica de análise de mensagens
+├── analyze_agent.py      # Agente IA para análise avançada
+├── requirements.txt      # Dependências Python
+├── Dockerfile            # Build do container da API
+├── compose.yaml          # Configuração Docker Compose
+├── start.sh              # Entrypoint: cria tabelas e inicia API
 ├── static/
-│   └── script.js         # Frontend JS
+│   └── script.js         # JS do frontend
 ├── templates/
-│   └── index.html        # Frontend HTML
+│   └── index.html        # HTML do frontend
 └── ...
 ```
 
-## Why This Project Stands Out
-- **Production-Ready Patterns**: Clean separation of concerns, robust error handling, and scalable architecture.
-- **DevOps Friendly**: Fully containerized, easy to deploy, and works out-of-the-box.
-- **User Experience**: Modern, responsive UI with real-time filtering and feedback.
-- **Extensible**: Easily add new analysis logic, endpoints, or UI features.
+## Por que este projeto se destaca
+- **Padrões Profissionais**: Separação clara de responsabilidades, tratamento de erros e arquitetura escalável.
+- **DevOps Friendly**: Totalmente conteinerizado, fácil de implantar e pronto para uso.
+- **Experiência do Usuário**: UI moderna, responsiva e com feedback em tempo real.
+- **Extensível**: Fácil adicionar novas lógicas de análise, endpoints ou recursos de UI.
 
-## Author & Contact
+## Autor & Contato
 Felipe Costa
 
 ---
 
-**Ready to deliver value as a Software Analyst!**
+**Pronto para entregar valor como Analista de Sistemas/Solutions builder!**
 
 ---
 
-*Feel free to reach out for any questions or improvements.*
+*Fique à vontade para entrar em contato para dúvidas ou sugestões.*
