@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+        /* Custom scrollbar for message list */
+        .message-list-scroll {
+            max-height: 70vh; /* Limit height for scrolling */
+            overflow-y: auto;
+            scrollbar-width: thin; /* For Firefox */
+            scrollbar-color: #9ca3af #f3f4f6; /* Thumb and track color */
+        }
+        .message-list-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .message-list-scroll::-webkit-scrollbar-track {
+            background: #f3f4f6;
+            border-radius: 10px;
+        }
+        .message-list-scroll::-webkit-scrollbar-thumb {
+            background-color: #9ca3af;
+            border-radius: 10px;
+            border: 2px solid #f3f4f6;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-800">
+    <div class="min-h-screen flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <header class="w-full max-w-4xl bg-white shadow-lg rounded-xl p-6 mb-8">
+            <h1 class="text-3xl font-bold text-center text-indigo-700">Deal Machine Messages Dashboard</h1>
+            <p class="text-center text-gray-600 mt-2">View and filter your important messages from Telegram, whatsapp and much more!</p>
+        </header>
+
+        <main class="w-full max-w-4xl flex flex-col lg:flex-row gap-6">
+            <!-- Filters Section -->
+            <aside class="lg:w-1/4 bg-white shadow-lg rounded-xl p-6 flex flex-col">
+                <h2 class="text-xl font-semibold text-indigo-600 mb-4">Filters</h2>
+                <div id="filters-container" class="space-y-4">
+                    <!-- Filters will be dynamically loaded here -->
+                    <p class="text-gray-500">Loading filters...</p>
+                </div>
+                <button id="reset-filters-btn" class="mt-6 w-full bg-gray-400 text-white py-2 px-4 rounded-lg hover:bg-gray-500 transition duration-300 ease-in-out shadow-md mb-2">
+                    Reset Filters
+                </button>
+                <button id="apply-filters-btn" class="mt-6 w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md">
+                    Apply Filters
+                </button>
+            </aside>
+
+            <!-- Messages Section -->
+            <section class="lg:w-3/4 bg-white shadow-lg rounded-xl p-6">
+                <h2 class="text-xl font-semibold text-indigo-600 mb-4">Messages</h2>
+                <div id="messages-container" class="message-list-scroll pr-2">
+                    <!-- Messages will be dynamically loaded here -->
+                    <p class="text-gray-500">Loading messages...</p>
+                </div>
+                <div id="no-messages-found" class="hidden text-center text-gray-500 mt-4">
+                    No messages found matching your criteria.
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
