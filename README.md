@@ -25,7 +25,7 @@ Este projeto é uma plataforma completa de análise de mensagens, construída co
 
 ### 1. Clone o repositório
 ```sh
-git clone <seu-repo-url>
+git clone https://github.com/felipepitoko/deal-machine-test.git
 cd deal-machine-test
 ```
 
